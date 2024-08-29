@@ -45,10 +45,7 @@ public class Departamento
     @Override
     public String toString() 
     {
-        return "Departamento{" +
-                "nombre='" + nombre + '\'' +
-                ", funcionarios=" + funcionarios +
-                '}';
+        return "Departamento{" + "nombre='" + nombre + '\'' + ", funcionarios=" + funcionarios + '}';
     }
 }
 
@@ -68,7 +65,7 @@ public class Ministerio
 
     public List < Departamento > getDepartamentos() { return departamentos; }
 
-    public void balancearFuncionarios() 
+    /** public void balancearFuncionarios() 
     {
         int totalFuncionarios = departamentos.stream()
                                              .mapToInt(Departamento::obtenerCantidadFuncionarios)
@@ -81,7 +78,55 @@ public class Ministerio
             int exceso = dept.obtenerCantidadFuncionarios() - media;
             // Implementar la lógica de reubicación según el exceso
         }
+    }**/
+
+    public void balancearFuncionarios() 
+    {
+        if (departamentos.isEmpty()) {
+            System.out.println("No hay departamentos para balancear.");
+            return;
+        }
+
+        int totalFuncionarios = departamentos.stream()
+                                             .mapToInt(Departamento::obtenerCantidadFuncionarios)
+                                             .sum();
+        int media = totalFuncionarios / departamentos.size();
+
+        // Listas temporales para gestionar exceso y déficit de funcionarios
+        List<Funcionario> excesoFuncionarios = new ArrayList<>();
+        List<Departamento> deficitDepartamentos = new ArrayList<>();
+
+        // Calcular exceso y déficit de funcionarios por departamento
+        for (Departamento dept : departamentos) 
+        {
+            int exceso = dept.obtenerCantidadFuncionarios() - media;
+
+            if (exceso > 0) 
+                {
+                // Agregar funcionarios en exceso a la lista temporal
+                List<Funcionario> funcionariosDept = dept.getFuncionarios();
+                for (int i = 0; i < exceso; i++) {
+                    excesoFuncionarios.add(funcionariosDept.get(i));
+                }
+            } else if (exceso < 0) {
+                // Agregar departamentos con déficit a la lista temporal
+                deficitDepartamentos.add(dept);
+            }
+        }
+
+        // Redistribuir funcionarios excedentes a departamentos con déficit
+        for (Departamento dept : deficitDepartamentos) 
+        {
+            int deficit = media - dept.obtenerCantidadFuncionarios();
+            for (int i = 0; i < deficit && !excesoFuncionarios.isEmpty(); i++) 
+            {
+                Funcionario funcionarioReubicado = excesoFuncionarios.remove(0);
+                dept.agregarFuncionario(funcionarioReubicado);
+            }
+        }
     }
+
+
 
     @Override
     public String toString() {
