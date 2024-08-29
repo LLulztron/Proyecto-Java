@@ -36,6 +36,7 @@ public class Main
                 case 4:
                     break;
                 case 5:
+                    System.out.println(ministerio);
                     break;
                 case 6:
                     break;

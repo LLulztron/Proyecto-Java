@@ -11,10 +11,17 @@ public class Ministerio
         this.departamentos = new ArrayList <Departamento> ();
     }
 
-    public void agregarDepartamento(Departamento departamento) { departamentos.add(departamento); }
+    public void agregarDepartamento(Departamento departamento) { 
+        departamentos.add(departamento); 
+    }
 
-    public void eliminarDepartamento(Departamento departamento) { departamentos.remove(departamento); }
+    public void eliminarDepartamento(Departamento departamento) {
+        departamentos.remove(departamento); 
+    }
 
-    public List<Departamento> getDepartamentos() { return departamentos; }
+    public List<Departamento> getDepartamentos() { 
+        return departamentos; 
+    }
 
+    
 }
