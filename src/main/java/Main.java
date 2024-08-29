@@ -1,167 +1,65 @@
-import java.util.ArrayList;
-import java.util.List;
-
-public class Funcionario 
-{
-    private String nombre;
-    private String puesto;
-
-    public Funcionario(String nombre, String puesto) 
-    {
-        this.nombre = nombre;
-        this.puesto = puesto;
-    }
-
-    public String getNombre() { return nombre; }
-
-    public String getPuesto() { return puesto; }
-
-    @Override
-    public String toString() 
-    {
-        return "Funcionario{" + "nombre='" + nombre + '\'' + ", puesto='" + puesto + '\'' + '}';
-    }
-}
-
-public class Departamento 
-{
-    private String nombre;
-    private List < Funcionario > funcionarios;
-
-    public Departamento(String nombre) 
-    {
-        this.nombre = nombre;
-        this.funcionarios = new ArrayList<>();
-    }
-
-    public void agregarFuncionario(Funcionario funcionario) { funcionarios.add(funcionario); }
-
-    public void eliminarFuncionario(Funcionario funcionario) { funcionarios.remove(funcionario); }
-
-    public List < Funcionario > getFuncionarios() { return funcionarios; }
-
-    public int obtenerCantidadFuncionarios() { return funcionarios.size(); }
-
-    @Override
-    public String toString() 
-    {
-        return "Departamento{" + "nombre='" + nombre + '\'' + ", funcionarios=" + funcionarios + '}';
-    }
-}
-
-public class Ministerio 
-{
-    private String nombre;
-    private List<Departamento> departamentos;
-
-    public Ministerio(String nombre) {
-        this.nombre = nombre;
-        this.departamentos = new ArrayList<>();
-    }
-
-    public void agregarDepartamento(Departamento departamento) { departamentos.add(departamento); }
-
-    public void eliminarDepartamento(Departamento departamento) { departamentos.remove(departamento);}
-
-    public List < Departamento > getDepartamentos() { return departamentos; }
-
-    /** public void balancearFuncionarios() 
-    {
-        int totalFuncionarios = departamentos.stream()
-                                             .mapToInt(Departamento::obtenerCantidadFuncionarios)
-                                             .sum();
-        int media = totalFuncionarios / departamentos.size();
-
-        // Simulación de balanceo de funcionarios (solo como ejemplo)
-        for (Departamento dept : departamentos) 
-        {
-            int exceso = dept.obtenerCantidadFuncionarios() - media;
-            // Implementar la lógica de reubicación según el exceso
-        }
-    }**/
-
-    public void balancearFuncionarios() 
-    {
-        if (departamentos.isEmpty()) {
-            System.out.println("No hay departamentos para balancear.");
-            return;
-        }
-
-        int totalFuncionarios = departamentos.stream()
-                                             .mapToInt(Departamento::obtenerCantidadFuncionarios)
-                                             .sum();
-        int media = totalFuncionarios / departamentos.size();
-
-        // Listas temporales para gestionar exceso y déficit de funcionarios
-        List<Funcionario> excesoFuncionarios = new ArrayList<>();
-        List<Departamento> deficitDepartamentos = new ArrayList<>();
-
-        // Calcular exceso y déficit de funcionarios por departamento
-        for (Departamento dept : departamentos) 
-        {
-            int exceso = dept.obtenerCantidadFuncionarios() - media;
-
-            if (exceso > 0) 
-                {
-                // Agregar funcionarios en exceso a la lista temporal
-                List<Funcionario> funcionariosDept = dept.getFuncionarios();
-                for (int i = 0; i < exceso; i++) {
-                    excesoFuncionarios.add(funcionariosDept.get(i));
-                }
-            } else if (exceso < 0) {
-                // Agregar departamentos con déficit a la lista temporal
-                deficitDepartamentos.add(dept);
-            }
-        }
-
-        // Redistribuir funcionarios excedentes a departamentos con déficit
-        for (Departamento dept : deficitDepartamentos) 
-        {
-            int deficit = media - dept.obtenerCantidadFuncionarios();
-            for (int i = 0; i < deficit && !excesoFuncionarios.isEmpty(); i++) 
-            {
-                Funcionario funcionarioReubicado = excesoFuncionarios.remove(0);
-                dept.agregarFuncionario(funcionarioReubicado);
-            }
-        }
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "Ministerio{" +
-                "nombre='" + nombre + '\'' +
-                ", departamentos=" + departamentos +
-                '}';
-    }
-}
+import java.util.Scanner;
 
 public class Main 
 {
     public static void main(String[] args)
     {
-        Ministerio ministerioSalud = new Ministerio("Ministerio de Salud");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese el nombre del ministerio: ");
+        String nombreMinisterio = scanner.nextLine();
+        Ministerio ministerio = new Ministerio(nombreMinisterio);
+        int opcion;
 
-        Departamento deptoHospitales = new Departamento("Hospitales");
-        Departamento deptoClinicas = new Departamento("Clínicas");
+        do {
+            System.out.println("\n--- Menú ---");
+            System.out.println("1. Agregar Departamento");
+            System.out.println("2. Eliminar Departamento");
+            System.out.println("3. Agregar Funcionario");
+            System.out.println("4. Eliminar Funcionario");
+            System.out.println("5. Mostrar Estado del Ministerio");
+            System.out.println("6. Balancear Funcionarios");
+            System.out.println("7. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();  // Consumir el salto de línea
 
-        Funcionario func1 = new Funcionario("Juan Pérez", "Doctor");
-        Funcionario func2 = new Funcionario("María Gómez", "Enfermera");
+            switch (opcion) {
+                case 1:
+                    System.out.print("Ingrese el nombre del departamento: ");
+                    String nombreDepto = scanner.nextLine();
+                    ministerio.agregarDepartamento(new Departamento(nombreDepto));
+                    break;
+                case 2:
+                    System.out.print("Ingrese el nombre del departamento a eliminar: ");
+                    String nombreDeptoEliminar = scanner.nextLine();
+                    // Lógica para eliminar departamento
+                    break;
+                case 3:
+                    System.out.print("Ingrese el nombre del funcionario: ");
+                    String nombreFuncionario = scanner.nextLine();
+                    System.out.print("Ingrese el puesto del funcionario: ");
+                    String puestoFuncionario = scanner.nextLine();
+                    System.out.print("Ingrese el departamento del funcionario: ");
+                    String deptoFuncionario = scanner.nextLine();
+                    // Lógica para agregar funcionario al departamento adecuado
+                    break;
+                case 4:
+                    // Lógica para eliminar funcionario
+                    break;
+                case 5:
+                    System.out.println(ministerio);
+                    break;
+                case 6:
+                    ministerio.balancearFuncionarios();
+                    break;
+                case 7:
+                    System.out.println("Saliendo del programa.");
+                    break;
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+            }
+        } while (opcion != 7);
 
-        deptoHospitales.agregarFuncionario(func1);
-        deptoClinicas.agregarFuncionario(func2);
-
-        ministerioSalud.agregarDepartamento(deptoHospitales);
-        ministerioSalud.agregarDepartamento(deptoClinicas);
-
-        // Mostrar el estado inicial del ministerio
-        System.out.println(ministerioSalud);
-
-        // Balancear funcionarios si hay déficit o superávit
-        ministerioSalud.balancearFuncionarios();
-
-        // Mostrar el estado final del ministerio
-        System.out.println(ministerioSalud);
+        scanner.close();
     }
 }
