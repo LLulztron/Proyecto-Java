@@ -94,7 +94,7 @@ public class Ministerio
 
 public class Main 
 {
-    public static void main(String[] args) 
+    public static void main(String[] args)
     {
         Ministerio ministerioSalud = new Ministerio("Ministerio de Salud");
 
