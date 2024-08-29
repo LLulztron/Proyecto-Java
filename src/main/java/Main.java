@@ -20,8 +20,8 @@ public class Main
             System.out.println("6. Balancear Funcionarios");
             System.out.println("7. Salir");
             System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();  // Consumir el salto de línea
+            opcion = scanner.nextInt(); // Leer la opción seleccionada por el usuario
+            scanner.nextLine();  // Consumir el salto de línea después de leer el número
 
             switch (opcion) {
                 case 1:
