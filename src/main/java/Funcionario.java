@@ -1,4 +1,3 @@
-
 public class Funcionario 
 {
     private String nombre;
@@ -14,9 +13,5 @@ public class Funcionario
 
     public String getPuesto() { return puesto; }
 
-    @Override
-    public String toString() 
-    {
-        return "Funcionario{" + "nombre :'" + nombre + '\'' + ", puesto='" + puesto + '\'' + '}';
-    }
+    
 }

@@ -17,12 +17,4 @@ public class Departamento
     public void eliminarFuncionario(Funcionario funcionario) { funcionarios.remove(funcionario); }
 
     public List<Funcionario> getFuncionarios() { return funcionarios; }
-
-    public int obtenerCantidadFuncionarios() { return funcionarios.size(); }
-
-    @Override
-    public String toString() 
-    {
-        return "Departamento" + "nombre: " + nombre + '\'' + " funcionarios: " + funcionarios;
-    }
 }

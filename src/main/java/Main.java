@@ -30,27 +30,14 @@ public class Main
                     ministerio.agregarDepartamento(new Departamento(nombreDepto));
                     break;
                 case 2:
-                    System.out.print("Ingrese el nombre del departamento a eliminar: ");
-                    String nombreDeptoEliminar = scanner.nextLine();
-                    // Lógica para eliminar departamento
                     break;
                 case 3:
-                    System.out.print("Ingrese el nombre del funcionario: ");
-                    String nombreFuncionario = scanner.nextLine();
-                    System.out.print("Ingrese el puesto del funcionario: ");
-                    String puestoFuncionario = scanner.nextLine();
-                    System.out.print("Ingrese el departamento del funcionario: ");
-                    String deptoFuncionario = scanner.nextLine();
-                    // Lógica para agregar funcionario al departamento adecuado
                     break;
                 case 4:
-                    // Lógica para eliminar funcionario
                     break;
                 case 5:
-                    System.out.println(ministerio);
                     break;
                 case 6:
-                    ministerio.balancearFuncionarios();
                     break;
                 case 7:
                     System.out.println("Saliendo del programa.");
